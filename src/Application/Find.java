@@ -24,10 +24,10 @@ public class Find {
 	public static ArrayList<Commit> commits;	
 	
 	//Name of the project to analyze
-	private static String project ="FALCON";	
+	private static String project ="FALCON";
 	
-	//Credention
-	private static String token = "e0a7ad3e7a8ae266f55c600a19e1411d48717218";
+	private static String token;
+	
 	
 	
    private static String readAll(Reader rd) throws IOException {
@@ -122,7 +122,7 @@ public class Find {
        //Setting the requirements to access the github api
        
        urlConnection.setRequestProperty("Accept", "application/vnd.github.cloak-preview");
-       urlConnection.setRequestProperty("Authorization", "token "+token);
+       urlConnection.setRequestProperty("Authorization", "token "+ token);
 
        BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
        String jsonText = readAll(rd);
@@ -142,14 +142,18 @@ public class Find {
 	   
 	   Integer page=0;
 	   JSONArray comm = null;
+	   token =  PropertiesUtils.getProperty(ReadPropertyFile.TOKEN);
+
+	   //System.out.println(token);
 	   
 	  while(true) {
 		   
 		  //Takes all commits
 		   
 		  String url = "https://api.github.com/repos/apache/falcon/commits?&per_page=100&page="+page.toString();
-		   
+		  
 		  try{
+			  
 	    	   comm = readJsonArrayFromUrl(url, token);
 	       }catch(Exception e) {
 	    	   System.out.println(e);
