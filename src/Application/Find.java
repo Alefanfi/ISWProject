@@ -108,7 +108,7 @@ public class Find {
 	    	 
 	      }
 	      
-	      System.out.println(tickets.size());
+	      //System.out.println(tickets.size());
 	      
 	      return tickets;
 	   
