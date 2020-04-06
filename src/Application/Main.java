@@ -29,12 +29,16 @@ public class Main {
 		
 		//PrintWriter pw = new PrintWriter(printer);
 		  
-	       printer.println("Year,Month");
+	       printer.println("Ticket,Year,Month");
 
+	       String tkt = null;
 	       Date d = null;
 	       LocalDate ld = null;
 	       
 	       for(int i=0;i<Find.tickets.size();i++) {
+	    	   
+	    	   tkt=Find.tickets.get(i).getId();
+	    	   
 	    	   d = Find.tickets.get(i).findTheOldestDate();
 	    	   
 	    	   if(d == null) {
@@ -42,7 +46,7 @@ public class Main {
 	    	   }
 	    	   
 	    	   ld = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-	    	   printer.println(ld.getYear()+","+ld.getMonthValue());
+	    	   printer.println(tkt+","+ld.getYear()+","+ld.getMonthValue());
 	       }
 	       
 	       printer.flush();

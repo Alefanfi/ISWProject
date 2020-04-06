@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import org.json.JSONArray;
@@ -26,7 +27,7 @@ public class Find {
 	private static String project ="FALCON";	
 	
 	//Credention
-	private static String password = "86587bc687add38a1e4a2de4baf399d4a86ce759";
+	private static String token = "e0a7ad3e7a8ae266f55c600a19e1411d48717218";
 	
 	
    private static String readAll(Reader rd) throws IOException {
@@ -114,23 +115,24 @@ public class Find {
 	   
    }
    
-   public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
-	      //InputStream is = new URL(url).openStream();
-		   URL url2 = new URL(url);
-		   HttpURLConnection urlConnection = (HttpURLConnection)  url2.openConnection();
-		   urlConnection.setRequestProperty("Accept", "application/vnd.github.cloak-preview");
-		  
-		   urlConnection.setRequestProperty("Authorization", "token "+password);
-	     
-	      try {
-	         BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), Charset.forName("UTF-8")));
-	         String jsonText = readAll(rd);
-	         JSONArray json = new JSONArray(jsonText);
-	         return json;
-	       } finally {
-	         urlConnection.disconnect();
-	       }
-	   }
+   public static JSONArray readJsonArrayFromUrl(String url, String token) throws IOException, JSONException {
+       URL url2 = new URL(url);
+       HttpURLConnection urlConnection = (HttpURLConnection)  url2.openConnection();
+
+       //Setting the requirements to access the github api
+       
+       urlConnection.setRequestProperty("Accept", "application/vnd.github.cloak-preview");
+       urlConnection.setRequestProperty("Authorization", "token "+token);
+
+       BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
+       String jsonText = readAll(rd);
+       JSONArray json = new JSONArray(jsonText);
+
+       urlConnection.disconnect();
+
+       return json;
+
+   }
 
    public static  ArrayList<Commit> getAllCommits() throws JSONException, IOException, InterruptedException, ParseException{
 	   
@@ -148,7 +150,7 @@ public class Find {
 		  String url = "https://api.github.com/repos/apache/falcon/commits?&per_page=100&page="+page.toString();
 		   
 		  try{
-	    	   comm = readJsonArrayFromUrl(url);
+	    	   comm = readJsonArrayFromUrl(url, token);
 	       }catch(Exception e) {
 	    	   System.out.println(e);
 	    	   break;
