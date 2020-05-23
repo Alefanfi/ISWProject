@@ -21,7 +21,7 @@ public class Main {
 		
 		Find.sortCommits(Find.tickets, Find.commits);
 		
-		//Generate the .csv file 
+		//Generate the output.csv file 
 		
 		PrintStream printer = new PrintStream(new File("output.csv"));
 		
