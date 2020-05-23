@@ -9,7 +9,7 @@ public class Ticket {
 	
 	private ArrayList<Commit> commitsTicket;
 	
-	private Date oldestDate = null;
+	private Date resolutionDate = null;
 
 	public Ticket(String id) {
 
@@ -42,27 +42,28 @@ public class Ticket {
 		this.commitsTicket = commitsTicket;
 	}
 
-	public Date findTheOldestDate() {
+	public Date findDate() {
 		// TODO Auto-generated method stub
 		
-		if(oldestDate == null) {
+		if(resolutionDate == null) {
 
 			for(int i=0;i<commitsTicket.size();i++) {
 				
-				if(oldestDate == null) {
-					oldestDate = commitsTicket.get(i).getDate();
+				if(resolutionDate == null) {
+					resolutionDate = commitsTicket.get(i).getDate();
 				}
-				else if(oldestDate.compareTo(commitsTicket.get(i).getDate()) < 0) {
-					oldestDate = commitsTicket.get(i).getDate();
+				else if(resolutionDate.compareTo(commitsTicket.get(i).getDate()) < 0) {
+					resolutionDate = commitsTicket.get(i).getDate();
 				}
 				
 			}
 		}
 		
 		//System.out.println(oldestDate);
-		return oldestDate;
+		return resolutionDate;
 		
 	}
+
 		
 	
 }

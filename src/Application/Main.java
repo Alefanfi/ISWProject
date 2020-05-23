@@ -37,9 +37,9 @@ public class Main {
 	       
 	       for(int i=0;i<Find.tickets.size();i++) {
 	    	   
-	    	   tkt=Find.tickets.get(i).getId();
-	    	   
-	    	   d = Find.tickets.get(i).findTheOldestDate();
+	    	   tkt=Find.tickets.get(i).getId(); 
+	    	  
+	    	   d = Find.tickets.get(i).findDate();
 	    	   
 	    	   if(d == null) {
 	    		   continue;
