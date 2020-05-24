@@ -12,10 +12,15 @@
         <pathelement location="bin"/>
         <pathelement location="json-20190722.jar"/>
     </path>
+    <path id="run.Main (4).classpath">
+        <path refid="ISWProject.classpath"/>
+        <pathelement location="json-20190722.jar"/>
+    </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -47,9 +52,9 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="Main (1)">
+    <target name="Main (4)">
         <java classname="Application.Main" failonerror="true" fork="yes">
-            <classpath refid="ISWProject.classpath"/>
+            <classpath refid="run.Main (4).classpath"/>
         </java>
     </target>
 </project>
